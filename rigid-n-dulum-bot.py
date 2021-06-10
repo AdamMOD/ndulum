@@ -11,8 +11,8 @@ import matplotlib
 matplotlib.rcParams["figure.figsize"] = (10.0, 10.0)
 plt.style.use('seaborn')
 sympy.init_printing()
-
-n = 2
+np.set_printoptions(precision=4)
+n = 3
 
 
 
@@ -38,10 +38,15 @@ o_point = {}
 
 for i in range(n):
     o_point.update({theta[i]: np.pi, thetad[i]: 0})
-    values.update({lengths[i]: 1, masses[i]: 1})
-    values.update({radii[i]: .5, inertia_vals[i]: 2})
 
-values.update({lengths[-1]: 1, masses[-1]: 4, inertia_vals[-1]: 20})
+values.update({lengths[0]: .0787, masses[0]: .0467})
+values.update({radii[0]: .0613, inertia_vals[0]: .00002721})
+values.update({lengths[1]: .0775, masses[1]: .0245})
+values.update({radii[1]: .04, inertia_vals[1]: .0000257})
+values.update({masses[2]: .623, lengths[2]: .03})
+values.update({radii[2]: .002, inertia_vals[2]: .00271})
+
+#values.update({lengths[-1]: 1, masses[-1]: 4, inertia_vals[-1]: 20})
 lengthsum = sum([values[i] for i in lengths])
 print(o_point)
 
@@ -111,7 +116,7 @@ x0 = np.zeros(n * 2)
 x0[0:n] = np.pi + np.linspace(-.005,.01,n)
 
 time = 1
-dt = .05
+dt = .005
 t = np.arange(0,time,dt)
 soltn = integrate.odeint(lin_eq, x0, t)
 soltnf = integrate.odeint(nonlin_eq, x0, t)
